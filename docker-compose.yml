@@ -5,28 +5,14 @@ services:
     image: mysql:5.7
     container_name: mysql_db
     environment:
-      MYSQL_ROOT_PASSWORD: dPhvPDAlcAG1cu96qTa1U1vABC6x
-      MYSQL_DATABASE: mbrms
-      MYSQL_USER: mbrms_root
-      MYSQL_PASSWORD: dPhvPDAlcAG1cu96qTa1U1vABC6x
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD} # Use environment variable for DB password
+      MYSQL_DATABASE: ${DB_NAME} # Use environment variable for DB name
+      MYSQL_USER: ${DB_USER} # Use environment variable for DB user
+      MYSQL_PASSWORD: ${DB_PASSWORD} # Use environment variable for DB password
     ports:
-      - '3306:3306'
+      - '${DB_PORT}:3306'
     volumes:
       - mysql_data:/var/lib/mysql
-    networks:
-      - mbrms-network
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
-    environment:
-      PMA_HOST: db
-      PMA_USER: mbrms_root
-      PMA_PASSWORD: dPhvPDAlcAG1cu96qTa1U1vABC6x
-    ports:
-      - '8080:80'
-    depends_on:
-      - db
     networks:
       - mbrms-network
 
